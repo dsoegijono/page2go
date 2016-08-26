@@ -35,11 +35,11 @@
     };
 
     function iOSSuccess() {
-      window.webkit.messageHandlers.onPaymentSuccess.postMessage(JSON.stringify(successMessage));
+      window.webkit.messageHandlers.mobile.postMessage(JSON.stringify(successMessage));
     }
 
     function iOSError() {
-      window.webkit.messageHandlers.onPaymentError.postMessage(JSON.stringify(errorMessage));
+      window.webkit.messageHandlers.mobile.postMessage(JSON.stringify(errorMessage));
     }
 
     // function androidSuccess() {
