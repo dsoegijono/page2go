@@ -9,14 +9,14 @@
     <button onclick="iOSSuccess()">iOS success</button>
     <button onclick="iOSError()">iOS error</button>
   </div>
-  <!-- <div>
+  <div>
     <button onclick="androidSuccess()">Android success</button>
     <button onclick="androidError()">Android error</button>
-  </div> -->
-  <!-- <div>
+  </div>
+  <div>
     <button onclick="webSuccess()">Web success</button>
     <button onclick="webError()">Web error</button>
-  </div> -->
+  </div>
   <p id="logMessage"></p>
 
   <script>
@@ -42,17 +42,21 @@
       window.webkit.messageHandlers.mobile.postMessage(JSON.stringify(errorMessage));
     }
 
-    // function androidSuccess() {
-    //   window.webkit.messageHandlers.onPaymentSuccess.postMessage(JSON.stringify(successMessage));
-    // }
-    //
-    // function android() {
-    //   window.webkit.messageHandlers.onPaymentError.postMessage(JSON.stringify(errorMessage));
-    // }
-    //
-    // function webSuccess() {
-    //   window.postMessage(JSON.stringify(successMessage));
-    // }
+    function androidSuccess() {
+      Android.onPaymentSuccess(JSON.stringify(successMessage));
+    }
+
+    function android() {
+      Android.onPaymentError(JSON.stringify(errorMessage));
+    }
+
+    function webSuccess() {
+      window.opener.postMessage(JSON.stringify(successMessage));
+    }
+
+    function webError() {
+      window.opener.postMessage(JSON.stringify(errorMessage));
+    }
   </script>
 </body>
 </html>
