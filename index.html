@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Invoice2go</title>
+</head>
+<body>
+  <h3>Test page</h3>
+  <div>
+    <button onclick="iOSSuccess()">iOS success</button>
+    <button onclick="iOSError()">iOS error</button>
+  </div>
+  <!-- <div>
+    <button onclick="androidSuccess()">Android success</button>
+    <button onclick="androidError()">Android error</button>
+  </div> -->
+  <!-- <div>
+    <button onclick="webSuccess()">Web success</button>
+    <button onclick="webError()">Web error</button>
+  </div> -->
+  <p id="logMessage"></p>
+
+  <script>
+    var successMessage = {
+      amount: 123.50,
+      ccType: 'visa',
+      ccLast4: '4242',
+      isPaymentSuccess: true,
+    };
+
+    var errorMessage = {
+      errorCode: '2000',
+      errorFunction: 'record_payment_transaction',
+      errorMessage: 'There was an issue handling your payment. Please try again or provide an alternative method.',
+      isPaymentSuccess: false,
+    };
+
+    function iOSSuccess() {
+      window.webkit.messageHandlers.onPaymentSuccess.postMessage(JSON.stringify(successMessage));
+    }
+
+    function iOSError() {
+      window.webkit.messageHandlers.onPaymentError.postMessage(JSON.stringify(errorMessage));
+    }
+
+    // function androidSuccess() {
+    //   window.webkit.messageHandlers.onPaymentSuccess.postMessage(JSON.stringify(successMessage));
+    // }
+    //
+    // function android() {
+    //   window.webkit.messageHandlers.onPaymentError.postMessage(JSON.stringify(errorMessage));
+    // }
+    //
+    // function webSuccess() {
+    //   window.postMessage(JSON.stringify(successMessage));
+    // }
+  </script>
+</body>
+</html>
