@@ -2,6 +2,20 @@
 <html>
 <head>
   <title>Invoice2go</title>
+
+  <style>
+    body {
+      padding: 0 20px;
+      font-size: 20pt;
+    }
+    div {
+      margin-bottom: 30px;
+    }
+    button {
+      height: 40px;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
   <h3>Test page</h3>
@@ -51,11 +65,11 @@
     }
 
     function webSuccess() {
-      window.opener.postMessage(JSON.stringify(successMessage));
+      window.parent.postMessage(JSON.stringify(successMessage), '*');
     }
 
     function webError() {
-      window.opener.postMessage(JSON.stringify(errorMessage));
+      window.parent.postMessage(JSON.stringify(errorMessage), '*');
     }
   </script>
 </body>
