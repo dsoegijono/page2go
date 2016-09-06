@@ -38,48 +38,42 @@
     <button onclick="webSuccess()">Web success</button>
     <button onclick="webError()">Web error</button>
   </div>
-  <small>Message returned:</small><br />
-  <textarea id="logMessage" disabled="true"></textarea>
 
   <script>
     var paymentProcessing = 'payment-processing';
     var paymentSuccess = 'payment-success';
     var paymentFailed = 'payment-failed';
 
-    var successMessage = {
-      amount: 123.50,
-      ccType: 'visa',
-      ccLast4: '4242',
-      currencyCode: 'USD',
-      currencySymbol: '$',
-      isPaymentSuccess: true,
-    };
-
-    var errorMessage = {
-      errorCode: '2000',
-      errorFunction: 'record_payment_transaction',
-      errorMessage: 'There was an issue handling your payment. Please try again or provide an alternative method.',
-      isPaymentSuccess: false,
-    };
+    // var successMessage = {
+    //   amount: 123.50,
+    //   ccType: 'visa',
+    //   ccLast4: '4242',
+    //   currencyCode: 'USD',
+    //   currencySymbol: '$',
+    //   isPaymentSuccess: true,
+    // };
+    //
+    // var errorMessage = {
+    //   errorCode: '2000',
+    //   errorFunction: 'record_payment_transaction',
+    //   errorMessage: 'There was an issue handling your payment. Please try again or provide an alternative method.',
+    //   isPaymentSuccess: false,
+    // };
 
     function iOSSuccess() {
-      // showSuccessMessage();
       window.webkit.messageHandlers.paymentsPortal.postMessage(paymentSuccess);
     }
 
     function iOSError() {
-      // showErrorMessage();
       window.webkit.messageHandlers.paymentsPortal.postMessage(paymentFailed);
     }
 
     function androidSuccess() {
-      // showSuccessMessage();
-      Android.onPaymentSuccess(JSON.stringify(successMessage));
+      window.Android.postPaymentsPortalMessage(paymentSuccess);
     }
 
     function androidError() {
-      // showErrorMessage();
-      Android.onPaymentError(JSON.stringify(errorMessage));
+      window.Android.postPaymentsPortalMessage(paymentFailed);
     }
 
     function webProcessing() {
@@ -87,21 +81,11 @@
     }
 
     function webSuccess() {
-      // showSuccessMessage();
       window.parent.postMessage(paymentSuccess, '*');
     }
 
     function webError() {
-      // showErrorMessage();
       window.parent.postMessage(paymentFailed, '*');
-    }
-
-    function showSuccessMessage() {
-      document.getElementById('logMessage').innerHTML = JSON.stringify(successMessage);
-    }
-
-    function showErrorMessage() {
-      document.getElementById('logMessage').innerHTML = JSON.stringify(errorMessage);
     }
   </script>
 </body>
