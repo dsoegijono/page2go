@@ -34,6 +34,7 @@
     <button onclick="androidError()">Android error</button>
   </div>
   <div>
+    <button onclick="webProcessing()">Web processing</button>
     <button onclick="webSuccess()">Web success</button>
     <button onclick="webError()">Web error</button>
   </div>
@@ -41,6 +42,10 @@
   <textarea id="logMessage" disabled="true"></textarea>
 
   <script>
+    var paymentProcessing = 'payment-processing';
+    var paymentSuccess = 'payment-success';
+    var paymentFailed = 'payment-failed';
+
     var successMessage = {
       amount: 123.50,
       ccType: 'visa',
@@ -58,33 +63,37 @@
     };
 
     function iOSSuccess() {
-      window.webkit.messageHandlers.mobile.postMessage(JSON.stringify(successMessage));
-      showSuccessMessage();
+      // showSuccessMessage();
+      window.webkit.messageHandlers.paymentsPortal.postMessage(paymentSuccess);
     }
 
     function iOSError() {
-      window.webkit.messageHandlers.mobile.postMessage(JSON.stringify(errorMessage));
-      showErrorMessage();
+      // showErrorMessage();
+      window.webkit.messageHandlers.paymentsPortal.postMessage(paymentFailed);
     }
 
     function androidSuccess() {
+      // showSuccessMessage();
       Android.onPaymentSuccess(JSON.stringify(successMessage));
-      showSuccessMessage();
     }
 
     function androidError() {
+      // showErrorMessage();
       Android.onPaymentError(JSON.stringify(errorMessage));
-      showErrorMessage();
+    }
+
+    function webProcessing() {
+      window.parent.postMessage(paymentProcessing, '*');
     }
 
     function webSuccess() {
-      window.parent.postMessage(JSON.stringify(successMessage), '*');
-      showSuccessMessage();
+      // showSuccessMessage();
+      window.parent.postMessage(paymentSuccess, '*');
     }
 
     function webError() {
-      window.parent.postMessage(JSON.stringify(errorMessage), '*');
-      showErrorMessage();
+      // showErrorMessage();
+      window.parent.postMessage(paymentFailed, '*');
     }
 
     function showSuccessMessage() {
