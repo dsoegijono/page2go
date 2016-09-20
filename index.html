@@ -16,11 +16,6 @@
       height: 40px;
       font-size: 16px;
     }
-    textarea {
-      font-size: 14px;
-      width: 300px;
-      height: 100px;
-    }
   </style>
 </head>
 <body>
@@ -44,22 +39,6 @@
     var paymentSuccess = 'payment-success';
     var paymentFailed = 'payment-failed';
 
-    // var successMessage = {
-    //   amount: 123.50,
-    //   ccType: 'visa',
-    //   ccLast4: '4242',
-    //   currencyCode: 'USD',
-    //   currencySymbol: '$',
-    //   isPaymentSuccess: true,
-    // };
-    //
-    // var errorMessage = {
-    //   errorCode: '2000',
-    //   errorFunction: 'record_payment_transaction',
-    //   errorMessage: 'There was an issue handling your payment. Please try again or provide an alternative method.',
-    //   isPaymentSuccess: false,
-    // };
-
     function iOSSuccess() {
       window.webkit.messageHandlers.paymentsPortal.postMessage(paymentSuccess);
     }
@@ -77,15 +56,15 @@
     }
 
     function webProcessing() {
-      window.parent.postMessage(paymentProcessing, '*');
+      window.parent.postMessage(paymentProcessing, document.referrer);
     }
 
     function webSuccess() {
-      window.parent.postMessage(paymentSuccess, '*');
+      window.parent.postMessage(paymentSuccess, document.referrer);
     }
 
     function webError() {
-      window.parent.postMessage(paymentFailed, '*');
+      window.parent.postMessage(paymentFailed, document.referrer);
     }
   </script>
 </body>
